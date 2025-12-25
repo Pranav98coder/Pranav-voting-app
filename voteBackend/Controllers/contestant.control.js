@@ -187,11 +187,16 @@ const updatePost = asyncHandler(async (req, res) => {
 
   // 2. Fix: Check if Voter Profile exists first
   // We need this because we are copying data (name, age, etc.) from it.
-  if (!user.voterProfile) {
-    throw new ApiError(
-      400,
-      "You must create a Voter Profile before contesting."
-    );
+  if (!user.voterProfile && !user.ContestantProfile) {
+    return res
+      .status(400)
+      .json(
+        new ApiResponse(
+          400,
+          {},
+          "You must create a Voter profile or Contestant Profile before contesting."
+        )
+      );
   }
 
   // 3. Fix: Define 'o' (original data) in the main scope so both blocks can see it

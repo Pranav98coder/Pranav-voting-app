@@ -11,6 +11,18 @@ import { VoterProfile } from "../Models/voter.js";
 const reg = asyncHandler(async (req, res) => {
   const { name, role, message } = req.body;
   const userId = req.user._id;
+
+  const user = await User.findById(userId)
+    .populate("ContestantProfile")
+    .populate("voterProfile");
+
+  if (!user.voterProfile && !user.ContestantProfile) {
+    throw new ApiError(
+      400,
+      "You must create a Voter profile or Contestant Profile before contesting."
+    );
+  }
+
   // 2. Validate required fields
   if (!name || !role) {
     throw new ApiError(400, "Election name and Role are required");

@@ -36,9 +36,9 @@ const Contestant = () => {
   //upcoming elections
   const updatePost = async (selectedRole) => {
     try {
-      console.log("Updating post to:", selectedRole);
       const payload = { post: selectedRole };
       const res = await api.post("/api/v1/contestants/updPost", payload);
+      console.log("Updating post to:", selectedRole);
       console.log("Update Success:", res.data);
       setEPost(selectedRole);
       toast.success("Successfully nominated for " + selectedRole);
@@ -177,12 +177,16 @@ const Contestant = () => {
         role: data.role,
         message: data.message,
       };
+      console.log("go:");
       const go = await api.post("/api/v1/send/register", payload, {
         headers: { "Content-Type": "application/json" },
       });
-      toast.success("Succesfully,sent registration request!");
-      updatePost(data.role);
-      setShow("empty");
+      console.log(go);
+      if (go) {
+        toast.success("Succesfully,sent registration request!");
+        updatePost(data.role);
+        setShow("empty");
+      }
     } catch (err) {
       console.log("Error registering:", err.response);
       toast.error(err.response?.data?.message || "Something went wrong");

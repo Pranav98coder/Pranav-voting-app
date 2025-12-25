@@ -20,6 +20,7 @@ const registerVoter = asyncHandler(async (req, res) => {
       section: section,
       rollno: rollno,
     });
+
     user.voterProfile = det._id;
     await user.save();
     console.log("Created VoterProfile:", det);
@@ -32,7 +33,12 @@ const registerVoter = asyncHandler(async (req, res) => {
     user.voterProfile,
     {
       $set: {
-        voterProfile: req.body,
+        name: name,
+        age: age,
+        year: year,
+        branch: branch,
+        section: section,
+        rollno: rollno,
       },
     },
     { new: true, runValidators: true }
