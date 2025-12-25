@@ -1,11 +1,11 @@
 {
   "name": "votebackend",
   "version": "1.0.0",
+  "type": "module",
   "description": "A backend for voting application",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "type": "module",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
