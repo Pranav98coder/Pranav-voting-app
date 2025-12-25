@@ -2,7 +2,7 @@
 "use client";
 import axios from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "/";
+const BASE_URL = "/";
 const api = axios.create({
   baseURL: BASE_URL, // Replace with your actual backend URL
   withCredentials: true, // Important for sending cookies/JWT with every request
