@@ -141,8 +141,12 @@ const registerOrUpdateContestant = asyncHandler(async (req, res) => {
 });
 
 const getAllContestants = asyncHandler(async (req, res) => {
-  const contestants = await ContestantProfile.find({});
-
+  const contestants = await User.find({
+    ContestantProfile: { $ne: null, $exists: true },
+  })
+    .populate("ContestantProfile")
+    .select("-password -refreshToken")
+    .lean();
   return res
     .status(200)
     .json(

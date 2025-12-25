@@ -118,13 +118,17 @@ const Admin = () => {
     try {
       const res = await api.get("/api/v1/contestants/data");
       const users = res.data.data.contestants || [];
-      setPresidentList(users.filter((u) => u.post === "President"));
-      setVicePresidentList(users.filter((u) => u.post === "Vice President"));
+      setPresidentList(
+        users.filter((u) => u.ContestantProfile?.post === "President")
+      );
+      setVicePresidentList(
+        users.filter((u) => u.ContestantProfile?.post === "Vice President")
+      );
       setSportsSecretaryList(
-        users.filter((u) => u.post === "Sports Secretary")
+        users.filter((u) => u.ContestantProfile?.post === "Sports Secretary")
       );
       setCulturalSecretaryList(
-        users.filter((u) => u.post === "Cultural Secretary")
+        users.filter((u) => u.ContestantProfile?.post === "Cultural Secretary")
       );
       setContestantList(users);
     } catch (err) {
